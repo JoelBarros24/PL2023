@@ -30,14 +30,28 @@ def find_min_max_age():
 
 
 def calculate_disease_by_age_groups():
+    res = dict()
     minimum = int(min(find_min_max_age()))
     maximum = int(max(find_min_max_age()))
-    i = 0
+    while minimum < maximum:
+        res.update({'[' + str(minimum) + '-' + str(minimum + 4) + ']': 0})
+        minimum += 5
+
+    data = parse()
+    for linha in data:
+        for key in res.keys():
+            minimo, maximo = key.strip('[]').split('-')
+            if int(minimo) <= int(linha[0]) <= int(maximo):
+                res[key] += 1
+                break
+
+    # print(sum(res.values()))
+    return res
 
 
 def main():
-    print(calculate_disease_by_sex())
-    # print(calculate_disease_by_age_groups())
+    # print(calculate_disease_by_sex())
+    print(calculate_disease_by_age_groups())
 
 
 if __name__ == '__main__':
