@@ -1,4 +1,5 @@
 import csv
+from prettytable import PrettyTable
 
 
 def parse():
@@ -54,6 +55,9 @@ def find_cholesterol_values():
     return sorted(values), min(values), max(values)
 
 
+# Nesta função, foi buscar o valor mínimo e máximo de colestrol para encontrar o número de níveis.
+# Para facilitar a contagem por nível de colestrol, ordenei, por ordem crescente, a lista de valores de colestrol.
+
 def calculate_by_cholesterol_levels():
     res = dict()
     level = 1
@@ -76,11 +80,23 @@ def calculate_by_cholesterol_levels():
     return res
 
 
+def print_table(res):
+    table = PrettyTable()
+
+    table.field_names = res.keys()
+    table.add_row(res.values())
+
+    print(table)
+
+
 def main():
     # print(calculate_disease_by_sex())
     # print(calculate_disease_by_age_groups())
-    print(calculate_by_cholesterol_levels())
+    # print(calculate_by_cholesterol_levels())
     # print(find_cholesterol_values())
+    print_table(calculate_disease_by_sex())
+    print_table(calculate_disease_by_age_groups())
+    print_table(calculate_by_cholesterol_levels())
 
 
 if __name__ == '__main__':
