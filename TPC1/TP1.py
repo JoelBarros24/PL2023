@@ -85,18 +85,43 @@ def print_table(res):
 
     table.field_names = res.keys()
     table.add_row(res.values())
-
     print(table)
 
 
+def menu():
+    options = ['1- calcula distribuição da doença por sexo',
+               '2- calcula distribuição da doença por escalões etários',
+               '3- calcula distribuição da doença por níveis de colestrol',
+               '0- sair'
+               ]
+
+    option = -1
+
+    while option != 0:
+        print('Selecione uma das opções:')
+        for o in options:
+            print(o)
+
+        option = int(input("Indique a opção desejada: "))
+
+        if option == 1:
+            print_table(calculate_disease_by_sex())
+            print('\n')
+        elif option == 2:
+            print_table(calculate_disease_by_age_groups())
+            print('\n')
+        elif option == 3:
+            print_table(calculate_by_cholesterol_levels())
+            print('\n')
+        elif option == 0:
+            print('leaving...')
+        else:
+            print('Opção inválida')
+            print('\n')
+
+
 def main():
-    # print(calculate_disease_by_sex())
-    # print(calculate_disease_by_age_groups())
-    # print(calculate_by_cholesterol_levels())
-    # print(find_cholesterol_values())
-    print_table(calculate_disease_by_sex())
-    print_table(calculate_disease_by_age_groups())
-    print_table(calculate_by_cholesterol_levels())
+    menu()
 
 
 if __name__ == '__main__':
