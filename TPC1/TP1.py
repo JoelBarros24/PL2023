@@ -1,5 +1,9 @@
 import csv
+
+import matplotlib.colors
 from prettytable import PrettyTable
+import matplotlib.pyplot as plot
+import matplotlib.colors as colors
 
 
 def parse():
@@ -82,10 +86,22 @@ def calculate_by_cholesterol_levels():
 
 def print_table(res):
     table = PrettyTable()
-
     table.field_names = res.keys()
     table.add_row(res.values())
+
     print(table)
+
+
+def print_plot(res):
+    figure, axle = plot.subplots()
+    x_axle = res.keys()
+    y_axle = res.values()
+
+    css4_colors = colors.CSS4_COLORS
+    bar_colors = ['blue', 'red']
+
+    axle.bar(x_axle, y_axle, color=bar_colors)
+    plot.show()
 
 
 def menu():
@@ -106,12 +122,15 @@ def menu():
 
         if option == 1:
             print_table(calculate_disease_by_sex())
+            # print_plot(calculate_disease_by_sex())
             print('\n')
         elif option == 2:
             print_table(calculate_disease_by_age_groups())
+            # print_plot(calculate_disease_by_age_groups())
             print('\n')
         elif option == 3:
             print_table(calculate_by_cholesterol_levels())
+            # print_plot(calculate_by_cholesterol_levels())
             print('\n')
         elif option == 0:
             print('leaving...')
