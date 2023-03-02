@@ -19,9 +19,9 @@ def main():
 
         content = on_off_pattern.search(line).group(1)  # devolve o conteúdo dentro dos limites [ON, OFF].
         break_content = print_pattern.findall(content)  # encontra todas as substrings que terminam em =.
-
+        print(content)
+        print(break_content)
         for item in break_content:
-            print(item)
             digit_sequence = is_digit_pattern.findall(
                 item)  # devolve uma lista com as sequências de dígitos no conteúdo.
             print(digit_sequence)
