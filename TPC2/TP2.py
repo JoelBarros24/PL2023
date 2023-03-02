@@ -9,18 +9,24 @@ import re
 
 
 def main():
-    total = 0
     on_off_pattern = re.compile(r'on(.+?)off')
+    print_pattern = re.compile(r'(.+?)=')
     is_digit_pattern = re.compile(r'\d+')
-    # print_pattern = re.compile(r'=')
 
     for line in sys.stdin:
+        total = 0
         line = line.lower()
-        res = on_off_pattern.search(line).group(1)  # devolve o conteúdo dentro dos limites [ON, OFF].
-        print(res)
-        digit_sequence = is_digit_pattern.findall(res)  # devolve uma lista com as sequências de dígitos no conteúdo.
-        print(digit_sequence)
-        total += sum(map(int, digit_sequence))  # converte uma lista de dígitos em inteiros e faz o somatório.
+
+        content = on_off_pattern.search(line).group(1)  # devolve o conteúdo dentro dos limites [ON, OFF].
+        break_content = print_pattern.findall(content)  # encontra todas as substrings que terminam em =.
+
+        for item in break_content:
+            print(item)
+            digit_sequence = is_digit_pattern.findall(
+                item)  # devolve uma lista com as sequências de dígitos no conteúdo.
+            print(digit_sequence)
+            total += sum(map(int, digit_sequence))  # converte uma lista de dígitos em inteiros e faz o somatório.
+            print(total)
 
 
 if __name__ == '__main__':
