@@ -11,7 +11,7 @@ import re
 def main():
     on_off_pattern = re.compile(r'on(.+?)off')
     print_pattern = re.compile(r'(.+?)=')
-    is_digit_pattern = re.compile(r'\d+')
+    is_digit_pattern = re.compile(r'\d')
 
     for line in sys.stdin:
         total = 0
@@ -24,7 +24,6 @@ def main():
         for item in break_content:
             digit_sequence = is_digit_pattern.findall(
                 item)  # devolve uma lista com as sequências de dígitos no conteúdo.
-            print(digit_sequence)
             total += sum(map(int, digit_sequence))  # converte uma lista de dígitos em inteiros e faz o somatório.
             print(total)
 
