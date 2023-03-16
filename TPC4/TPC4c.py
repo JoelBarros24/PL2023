@@ -2,9 +2,9 @@ import csv
 import json
 import re
 
-with open('/home/joel/Documents/GitHub/PL2023/TPC4/alunos2.csv', encoding='utf-8') as csvfile:
+with open('/home/joel/Documents/GitHub/PL2023/TPC4/alunos3.csv', encoding='utf-8') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')
-    re_list = re.compile(r'^\w+{(\d+)}$')
+    re_list = re.compile(r'^\w+{(\d+(,\d+)?)}$')
     re_empty = re.compile(r'^\s*$')
 
     headers = next(reader)
@@ -19,8 +19,8 @@ with open('/home/joel/Documents/GitHub/PL2023/TPC4/alunos2.csv', encoding='utf-8
             if re_empty.match(headers[i]):  # se o cabeçalho for vazio, ignora
                 continue
             elif res:
-                field_len = int(res.group(1))  # tamanho da lista
-                grades = [int(x) for x in row[i:i + field_len]]
+                minimum, maximum = res.group(1).split(',')
+                grades = [int(x) for x in row[i + int(minimum):i + int(maximum)]]
                 row_dict[headers[i]] = grades
             else:
                 row_dict[headers[i]] = item
@@ -28,5 +28,5 @@ with open('/home/joel/Documents/GitHub/PL2023/TPC4/alunos2.csv', encoding='utf-8
         json_data.append(row_dict)
 
     # escreve os objetos JSON em um arquivo
-    with open('/home/joel/Documents/GitHub/PL2023/TPC4/alunos2.json', 'w') as jsonfile:
+    with open('/home/joel/Documents/GitHub/PL2023/TPC4/alunos3.json', 'w') as jsonfile:
         json.dump(json_data, jsonfile, indent=2, ensure_ascii=False)
